@@ -1,3 +1,5 @@
+import Reveal from './Reveal'
+
 export default function Gallery() {
   const items = [
     { id: 1, title: 'Neon Nights', src: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1400&auto=format&fit=crop' },
@@ -10,19 +12,28 @@ export default function Gallery() {
 
   return (
     <section className="relative py-24">
+      <div className="pointer-events-none absolute inset-0 opacity-40">
+        <div className="absolute top-10 left-1/4 h-56 w-56 rounded-full bg-amber-300/10 blur-3xl" />
+        <div className="absolute bottom-10 right-1/5 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
+      </div>
+
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white text-center">Event <span className="text-amber-300">Highlights</span></h2>
-        <p className="text-white/70 text-center mt-3 max-w-2xl mx-auto">A glimpse into moments crafted with precision, energy, and style.</p>
+        <Reveal className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">Event <span className="text-amber-300">Highlights</span></h2>
+          <p className="text-white/70 mt-3 max-w-2xl mx-auto">A glimpse into moments crafted with precision, energy, and style.</p>
+        </Reveal>
 
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {items.map(item => (
-            <div key={item.id} className="group relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
-              <img src={item.src} alt={item.title} className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0b1022]/80 via-[#0b1022]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-4 left-4 text-white">
-                <p className="text-lg font-semibold drop-shadow">{item.title}</p>
+          {items.map((item, i) => (
+            <Reveal key={item.id} delay={i * 0.04}>
+              <div className="group relative overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+                <img src={item.src} alt={item.title} className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1022]/80 via-[#0b1022]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute bottom-4 left-4 text-white">
+                  <p className="text-lg font-semibold drop-shadow">{item.title}</p>
+                </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
